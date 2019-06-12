@@ -7,7 +7,7 @@ class Hangman {
     }
 
     setStatus() {
-        const finished = this.word.every((letter) => this.guessedLetters.includes(letter))
+        const finished = this.word.every((letter) => this.guessedLetters.includes(letter) || letter === ' ')
     /*Funkcja every() iteruje przez całe słowo, callback zwraca true jeśli wszystkie elementy spełnily warunek i false jeśli choć jeden nie spełnił warunku.
     W tym wypadku jeśli wszystkie litery ze słowa-zagadki są zawarte w tablicy guessedLetters const finished będzie true*/
     if (this.guesses === 0) {
@@ -19,7 +19,7 @@ class Hangman {
     }
     }
 
-    setStatusMessage() {
+    get statusMessage() {
         if (this.status === 'playing') {
             return `Guesses left: ${this.guesses}`
         } else if (this.status === 'failed') {
@@ -31,7 +31,7 @@ class Hangman {
 
     /*Poniższa metoda zwraca słowo-zagadkę. Funkcja iteruje przez całe słowo, jeśli w gussedLetters zawarta jest podana przez użytkownika litera,
     to zwracana jest ona jako widoczna, jeśli podanej litery nie ma w gussedLetters zwracana jest '*'. Widoczne są również spacje (|| letter === ' ')*/
-    getPuzzle() {
+    get puzzle() {
         let puzzle = ''
         this.word.forEach((letter) => {
             if(this.guessedLetters.includes(letter) || letter === ' ') {
