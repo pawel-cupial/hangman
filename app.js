@@ -13,17 +13,8 @@ window.addEventListener('keypress', (e) => {//Event odpalany jest przy każdym n
     guessesPar.textContent = word1.statusMessage
 })
 
-const request = new XMLHttpRequest 
-
-request.addEventListener('readystatechange', (e) => {
-    if(e.target.readyState === 4 && e.target.status === 200) {
-    /*Ready state ma 5 wartości: 0 - UNSENT, 1 - OPENED, 2- HEADERS RECIVED, 3 - LOADING, 4 -DONE
-    Chchemy coś zrobić z danymi, które zostały pobrane z requesta stąd readyState === 4*/
-        const data = JSON.parse(e.target.responseText)//Losowa zagadka, którą chcemy uzyskać zapisana jest w właściwości responseText w formacie JSON
-        console.log(data)
-    }
+getPuzzle(3).then((puzzle) => {
+    console.log(puzzle)
+}).catch((err) => {
+    console.log(`Error: ${err}`)
 })
-
-request.open('GET', 'http://puzzle.mead.io/puzzle')
-request.send()
-
