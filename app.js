@@ -1,20 +1,26 @@
-const word1 = new Hangman('kotek', 3)
-
 const puzzlePar = document.querySelector('#puzzle')
 const guessesPar = document.querySelector('#guesses')
-
-puzzlePar.textContent = word1.puzzle
-guessesPar.textContent = word1.statusMessage
+let game
 
 window.addEventListener('keypress', (e) => {//Event odpalany jest przy każdym naciśnięciu klawisza w oknie przeglądarki
     const guess = String.fromCharCode(e.charCode)//Zamienia kod nacisniętego klawisza na jego faktyczną wartość
-    word1.makeGuess(guess)
-    puzzlePar.textContent = word1.puzzle
-    guessesPar.textContent = word1.statusMessage
+    game.makeGuess(guess)
+    render()
 })
 
-getPuzzle(3).then((puzzle) => {
-    console.log(puzzle)
-}).catch((err) => {
-    console.log(`Error: ${err}`)
+const render = () => {
+    puzzlePar.textContent = game.puzzle
+    guessesPar.textContent = game.statusMessage
+}
+
+const startGame = async() => {
+    const puzzle = await getPuzzle('2')
+    game = new Hangman(puzzle, 5)
+    render()
+}
+
+document.querySelector('#reset').addEventListener('click', (e) => {
+    startGame()
 })
+
+startGame()
