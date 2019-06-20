@@ -9,8 +9,14 @@ window.addEventListener('keypress', (e) => {//Event odpalany jest przy każdym n
 })
 
 const render = () => {
-    puzzlePar.textContent = game.puzzle
+    puzzlePar.innerHTML = ''
     guessesPar.textContent = game.statusMessage
+
+    game.puzzle.split('').forEach((letter) => {
+        const letterEl = document.createElement('span')
+        letterEl.textContent = letter
+        puzzlePar.appendChild(letterEl)
+    })
 }
 
 const startGame = async() => {
